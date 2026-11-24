@@ -1,17 +1,15 @@
-const video = document.querySelector('#camera');
-const button = document.querySelector('#start-camera');
+const cameraInput = document.querySelector('#camera-input');
+const cameraButton = document.querySelector('#open-camera');
+const preview = document.querySelector('#preview');
 
-button.addEventListener('click', async () => {
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-            video: {
-                facingMode: 'environment'
-            },
-            audio: false
-        });
+cameraButton.addEventListener('click', () => {
+    cameraInput.click();
+});
 
-        video.srcObject = stream;
-    } catch (error) {
-        console.error('Camera access failed: ', error);
+cameraInput.addEventListener('change', () => {
+    const file = cameraInput.files[0];
+
+    if (file) {
+        preview.src = URL.createObjectURL(file);
     }
 });
